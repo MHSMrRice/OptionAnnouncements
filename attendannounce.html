@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Presence Grid</title>
+        <style>
+            body{
+                padding:0;
+                margin:0;
+                display:flex;
+            }
+            .show{
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:100%;
+            }
+            .hide{
+                display:none;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Not working...yet</h1>
+        <!-- This page needs to:
+            1) load every thing in one go
+            2) reload the content so that it can update as needed
+            3) change between showing the attendance and announcements
+        -->
+        <div id="attend" class="show"> <!-- div wrapper for the Attendance Sheet-->
+            <iframe src="https://docs.google.com/a/mayfieldschools.org/spreadsheets/d/e/2PACX-1vS8WjBHDwBodKWR0h1ULbKgsJAsJ8kSf866EOA3bzD9A52W7ZQ2ptCgVKa-sQJrRwJ1qS7FnNf1mnEE/pubhtml?gid=51310812&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="100%"></iframe>
+        </div>
+        <div id="announce" class="hide"> <!-- div wrapper for the Announcements Slides-->
+            <iframe src="https://docs.google.com/a/mayfieldschools.org/presentation/d/e/2PACX-1vT1K7-hErdN9zt91fY4KRFCtm7GOPhRaVlXiVFbQu2ulGpQIkhInnw4TNVhv2l3aWqhPre27WfcW6g1/embed?start=true&loop=true&delayms=10000" frameborder="0" width="100%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+        </div>
+    <!-- Its good practice to load your Javascript last, whenever possible-->
+        <script>
+            function switched(item, show){ // This function controls which CSS is applied to the two div wrappers mentioned above
+                // the two function inputs allow allow this function to be used with any item ID and be used for both showing and hiding
+                if (show){
+                    // This will add/remove CSS tags that show the div if the variable 'show' is true
+                    document.getElementById(item).classList.add('show');
+                    document.getElementById(item).classList.remove('hide');
+                } else { 
+                    // Thiss will add/remove CSS tags that hide the div if the variable 'show' is false
+                    document.getElementById(item).classList.add('hide');
+                    document.getElementById(item).classList.remove('show');
+                }
+            }
+            var flipflop = false; // this global variable boolean is to flipflop between two states
+            function both(){
+                if(flipflop){ //if flipflop is true...
+                    switched("attend", true); //show the attendance 
+                    switched("announce",false); //hide the announcements
+                    flipflop = false; //change flipflop to false
+                } else { //if flipflop is false...
+                    switched("attend", false); //show the attendance 
+                    switched("announce",true); //hide the announcements
+                    flipflop = true; //change flipflop to true
+                }
+            }
+
+            function alternate(){
+                do{
+                    setTimeout(function() {both()}, 5000);
+                    setTimeout(function() {location.reload()}, 5000);
+                }
+                while(true);
+            }
+
+            document.body.onload = function() {both()};
+        </script>
+    </body>
+</html>
