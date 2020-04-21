@@ -54,38 +54,41 @@
   <body class="bg-dark">
     <navbar class="text-white">
       <h1>Mayfield High School</h1> 
-      <h3>COVID-19 Semester Grade Calculator</h3>
+      <h3>COVID-19 Spring 2020 Grade Calculator</h3>
       <img src="mayfield.png" style="width:150px;align-self: center;">
     </navbar>
     <div class="container main bg-secondary text-light">
-      <p>The grading policy <a class="text-light" href="https://twitter.com/WildcatMHS/status/1252314914359631873" target="_blank" alt="Twitter announcement by @WildcatMHS">has been decided</a> for this unusual semester. Your effort matters in both quarters, but the more successful quarter will have a larger impact. There will be no semester exams. Your overall grade will be calculated: 
+      <p>The grading policy <a class="text-light" href="https://twitter.com/WildcatMHS/status/1252314914359631873" target="_blank" data-toggle="tooltip" title="Twitter announcement by @WildcatMHS">has been decided</a> for this unusual semester. Your effort matters in both quarters, but the more successful quarter will have a larger impact. There will be no semester exams. Your overall grade will be calculated: 
         <ul>
           <li>40% from your Q3 grade</li> 
           <li>40% from your Q4 grade</li>
           <li>20% will come from the larger of either Q3 or Q4</li>
         </ul>
         </p> 
-      <p>The reason for this choice is two-fold: 1) to help shelter anyone that has a terrible experience during the stay-at-home order and 2) celebrate anyone who finds that they thrive when working from home, more than in the traditional classroom. </p>
+      <p>The reason for this choice is two-fold: 1) to acknowledge the <a class="text-light" target="_blank" href="https://www.merriam-webster.com/dictionary/crucible" data-toggle="tooltip" title="Merriam-Webster: Crucible #2/3">crucible</a> of our stay-at-home order and 2) celebrate anyone who finds that they thrive when working from home. </p>
       <div class="calculator">
         <div>
           <label for="q3">Quarter 3 Grade:</label>
-          <input type="number" id="q3" min="0" max="110" step="0.1" name="Q3-grade">
+          <input type="number" id="q3" min="0" max="110" step="0.1" name="Q3-grade" data-toggle="tooltip" title="Enter your grade % in a class from quarter 3"> %
         </div>
         <div>
           <label for="q3">Quarter 4 Grade:</label>
-          <input type="number" id="q4" min="0" max="110" step="0.1" name="Q4-grade">
+          <input type="number" id="q4" min="0" max="110" step="0.1" name="Q4-grade" data-toggle="tooltip" title="Enter your expected grade % in the same class for quarter 4"> %
         </div>
         <button onClick="calculateGrade()">Calculate</button>
 
-        <h1>Semester grade: <span id="semester-grade"></span></h1>
+        <h1>Semester grade: <span id="semester-grade" data-toggle="tooltip" title="Will calculate from data above">____</span></h1>
       </div>
     </div>
     <footer class="container text-muted">
-      <p>This page was written by Corey Rice, a teacher at Mayfield High School. Hopefully this is helpful for predicting outcomes and setting your goals.</p>
+      <p>This page was written by Corey Rice, a teacher at Mayfield High School. Hopefully this is helpful. <b>CTRL</b>/<b>⌘</b> + <b>U</b> to seee how this works - no cookies.</p>
       <p>Stay Safe ❤️ <a class="text-muted" target="_blank" href="https://coronavirus.ohio.gov/wps/portal/gov/covid-19/home">coronavirus.ohio.gov</a></p>
     </footer>
 
   <script type="text/javascript">
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();   
+    });
     function calculateGrade()
     {
       const _q3 = parseFloat(document.getElementById("q3").value);
@@ -106,7 +109,7 @@
         semester = semester + (0.2*_q4);
       }
 
-      if(displayResults) document.getElementById("semester-grade").innerHTML = semester;
+      if(displayResults) document.getElementById("semester-grade").innerHTML = semester + "%";
     }
   </script>
   </body>
